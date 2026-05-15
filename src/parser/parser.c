@@ -1,21 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   codexion.c                                         :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/15 13:53:38 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/15 22:39:04 by fda-cruz         ###   ########.fr       */
+/*   Created: 2026/05/15 21:24:07 by fda-cruz          #+#    #+#             */
+/*   Updated: 2026/05/15 21:24:26 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/codexion.h"
-
-int	main(int argc, char *argv[])
-{
-	if (argc != 9)
-		return (printf("ERROR: Expected 8 arguments, "
-				"received %d\n", argc - 1), 0);
-	return (0);
-}
+#include "../../include/codexion.h"
