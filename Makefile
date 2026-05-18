@@ -6,7 +6,7 @@
 #    By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/16 18:46:36 by fda-cruz          #+#    #+#              #
-#    Updated: 2026/05/16 20:58:53 by fda-cruz         ###   ########.fr        #
+#    Updated: 2026/05/18 17:10:15 by fda-cruz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,15 +16,21 @@ INCLUDE = -Iinclude
 
 SRC_DIR = src
 PARSER_DIR = src/parser
+SIMULATION_DIR = src/simulation
+THREADS_DIR = src/threads
 UTILS_DIR = src/utils
 
 MAIN_FILE = codexion.c
 PARSER_FILES = parser.c parser_aux.c
+SIMULATION_FILES = simulation.c simulation_utils.c
+THREADS_FILES = coder.c dongle.c monitor.c
 UTILS_FILES = utils.c
 
 OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/,$(MAIN_FILE:.c=.o))
 OBJ += $(addprefix $(OBJ_DIR)/,$(PARSER_FILES:.c=.o))
+OBJ += $(addprefix $(OBJ_DIR)/,$(SIMULATION_FILES:.c=.o))
+OBJ += $(addprefix $(OBJ_DIR)/,$(THREADS_FILES:.c=.o))
 OBJ += $(addprefix $(OBJ_DIR)/,$(UTILS_FILES:.c=.o))
 
 CC = cc
@@ -42,6 +48,14 @@ $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 $(OBJ_DIR)/%.o : $(PARSER_DIR)/%.c
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+
+$(OBJ_DIR)/%.o : $(SIMULATION_DIR)/%.c
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+
+$(OBJ_DIR)/%.o : $(THREADS_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 

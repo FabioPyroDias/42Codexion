@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 19:36:34 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/16 21:52:28 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/05/17 20:03:05 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	parse_positive_int(char *positive_int)
 {
 	int	converted_value;
 
+	if (!validate_integer_input(positive_int))
+		return (0);
 	converted_value = atoi(positive_int);
 	if (converted_value <= 0 || strlen(positive_int) > 10)
 		return (0);

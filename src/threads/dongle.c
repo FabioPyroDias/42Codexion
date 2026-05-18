@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   codexion.c                                         :+:      :+:    :+:   */
+/*   dongle.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/15 13:53:38 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/18 18:58:32 by fda-cruz         ###   ########.fr       */
+/*   Created: 2026/05/18 16:56:48 by fda-cruz          #+#    #+#             */
+/*   Updated: 2026/05/18 19:06:12 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/codexion.h"
+#include "../../include/codexion.h"
 
-int	main(int argc, char *argv[])
+void	*dongle_function(void *dongle_config)
 {
-	t_config	*config;
+	int				*dongles;
+	int				number_of_dongles;
 
-	if (argc != 9)
-		return (printf("ERROR: Expected 8 arguments, "
-				"received %d\n", argc - 1), 0);
-	config = parser(argv);
-	if (!config)
-		return (free_all(config), 0);
-	simulation(config);
-	printf("MAIN\n");
-	return (0);
+	dongles = (int *) dongle_config;
+	number_of_dongles = 0;
+	while (1)
+	{
+		if (dongles[number_of_dongles] == 0)
+			break;
+		number_of_dongles++;
+	}
+	return (NULL);
 }

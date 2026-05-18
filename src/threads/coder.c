@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   codexion.c                                         :+:      :+:    :+:   */
+/*   coder.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/15 13:53:38 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/18 18:58:32 by fda-cruz         ###   ########.fr       */
+/*   Created: 2026/05/17 20:07:53 by fda-cruz          #+#    #+#             */
+/*   Updated: 2026/05/18 18:59:12 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/codexion.h"
+#include "../../include/codexion.h"
 
-int	main(int argc, char *argv[])
+void	*coder_function(void *config)
 {
-	t_config	*config;
+	t_coder	*coder_config;
 
-	if (argc != 9)
-		return (printf("ERROR: Expected 8 arguments, "
-				"received %d\n", argc - 1), 0);
-	config = parser(argv);
-	if (!config)
-		return (free_all(config), 0);
-	simulation(config);
-	printf("MAIN\n");
-	return (0);
+	coder_config = (t_coder *) config;
+	if (coder_config)
+		printf("Somehow, I'm - %d - working\n", coder_config->coder_id);
+	sleep(rand() % 10 + 3);
+	printf("Sou uma thread\n\n");
+	return (NULL);
 }

@@ -6,15 +6,17 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 13:53:46 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/16 21:33:43 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/05/18 19:55:30 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <pthread.h>
 #include <limits.h>
 #include <string.h>
 #include <sys/time.h>
+#include <unistd.h>
 
 typedef enum schedule
 {
@@ -25,15 +27,32 @@ typedef enum schedule
 
 typedef struct s_configs
 {
-	int				number_of_coders;
-	int				time_to_burnout;
-	int				time_to_compile;
-	int				time_to_debug;
-	int				time_to_refactor;
-	int				number_of_compiles_required;
-	int				dongle_cooldown;
-	t_schedule		scheduler;
+	int			number_of_coders;
+	int			time_to_burnout;
+	int			time_to_compile;
+	int			time_to_debug;
+	int			time_to_refactor;
+	int			number_of_compiles_required;
+	int			dongle_cooldown;
+	t_schedule	scheduler;
 }	t_config;
+
+typedef struct s_coder
+{
+	int	coder_id;
+	int	number_of_coders;
+	int	time_to_burnout;
+	int	time_to_compile;
+	int	time_to_debug;
+	int	time_to_refactor;
+	int	number_of_compiles_required;
+}	t_coder;
+
+typedef struct s_control
+{
+	void	*data;
+	int		*is_running;
+}	t_control;
 
 // PARSER METHODS
 t_config	*parser(char *argv[]);
@@ -41,5 +60,15 @@ int			parse_positive_int(char *positive_int);
 t_schedule	parse_schedule(char *schedule);
 int			validate_config(t_config *config);
 
+// SIMULATION METHODS
+void	set_coder_config(t_coder **coder_config, t_config *config, int id);
+void	**create_environment(t_config *config);
+void	simulation(t_config *config);
+
+// CODER METHODS
+void	*coder_function(void *config);
+
 // UTILS METHODS
+int			validate_integer_input(char *input);
+void		*ft_calloc(size_t nmeb, size_t size);
 void		free_all(void *config);
