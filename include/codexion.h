@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 13:53:46 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/18 19:55:30 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/05/20 03:12:27 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,14 @@ t_schedule	parse_schedule(char *schedule);
 int			validate_config(t_config *config);
 
 // SIMULATION METHODS
-void	set_coder_config(t_coder **coder_config, t_config *config, int id);
-void	**create_environment(t_config *config);
 void	simulation(t_config *config);
+void	set_coder_config(t_coder *coder, t_config *c, int id);
+t_control	**populate_dongles(t_config *c, int *is_running);
+t_control	**populate_coders(t_config *c, int *is_running);
+t_control	**populate_threads(t_config *c, int *is_running);
+int		create_variables(t_control ***variables, int **is_running, t_config *c);
+void	free_coders(t_control **coders);
+void	free_threads(t_control **threads);
 
 // CODER METHODS
 void	*coder_function(void *config);
