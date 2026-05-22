@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 13:53:46 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/20 03:12:27 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/05/22 14:10:59 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@ typedef struct s_coder
 	int	number_of_compiles_required;
 }	t_coder;
 
+typedef struct s_dongle
+{
+	int	cooldown_time;
+	int	number_of_dongles;
+}	t_dongle;
+
 typedef struct s_control
 {
 	void	*data;
@@ -63,11 +69,12 @@ int			validate_config(t_config *config);
 // SIMULATION METHODS
 void	simulation(t_config *config);
 void	set_coder_config(t_coder *coder, t_config *c, int id);
-t_control	**populate_dongles(t_config *c, int *is_running);
-t_control	**populate_coders(t_config *c, int *is_running);
-t_control	**populate_threads(t_config *c, int *is_running);
+t_control	*populate_dongles(t_config *c, int *is_running);
+t_control	*populate_coders(t_config *c, int *is_running);
+t_control	*populate_threads(t_config *c, int *is_running);
 int		create_variables(t_control ***variables, int **is_running, t_config *c);
-void	free_coders(t_control **coders);
+void	free_dongles(t_control **dongles, t_config *c);
+void	free_coders(t_control **coders, t_config *c);
 void	free_threads(t_control **threads);
 
 // CODER METHODS
