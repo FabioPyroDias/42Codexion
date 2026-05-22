@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 13:53:38 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/18 18:58:32 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/05/22 15:27:58 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int argc, char *argv[])
 				"received %d\n", argc - 1), 0);
 	config = parser(argv);
 	if (!config)
-		return (free_all(config), 0);
+		return (free_all(config, NULL), 0);
 	simulation(config);
 	printf("MAIN\n");
 	return (0);

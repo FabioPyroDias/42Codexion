@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 22:18:02 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/22 14:33:58 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/05/22 15:25:10 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,17 +92,17 @@ int	create_variables(t_control ***variables, int **is_running, t_config *c)
 		return (0);
 	**is_running = 0;
 	*variables = malloc(sizeof(t_control *) * 3);
-	if (!variables)
+	if (!*variables)
 		return (free(*is_running), 0);
 	(*variables)[0] = populate_dongles(c, *is_running);
 	if (!(*variables)[0])
 		return (free(*is_running), free(*variables), 0);
 	(*variables)[1] = populate_coders(c, *is_running);
 	if (!(*variables)[1])
-		return (free(*is_running), free(variables[0]), free(*variables), 0);
+		return (free(*is_running), free_dongles((*variables)[0]), free(*variables), 0);
 	(*variables)[2] = populate_threads(c, *is_running);
 	if (!(*variables)[2])
-		return (free(*is_running), free_dongles(variables[0], c),
-			free_coders(variables[1], c), 0);
+		return (free(*is_running), free_dongles((*variables)[0]),
+			free_coders((*variables)[1]), free(*variables), 0);
 	return (1);
 }

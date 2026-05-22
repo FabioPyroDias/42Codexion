@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 13:53:46 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/22 14:10:59 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/05/22 15:26:30 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,13 @@ t_control	*populate_dongles(t_config *c, int *is_running);
 t_control	*populate_coders(t_config *c, int *is_running);
 t_control	*populate_threads(t_config *c, int *is_running);
 int		create_variables(t_control ***variables, int **is_running, t_config *c);
-void	free_dongles(t_control **dongles, t_config *c);
-void	free_coders(t_control **coders, t_config *c);
-void	free_threads(t_control **threads);
+void	free_dongles(t_control *dongles);
+void	free_coders(t_control *coders);
+void	free_threads(t_control *threads);
 
 // CODER METHODS
 void	*coder_function(void *config);
 
 // UTILS METHODS
 int			validate_integer_input(char *input);
-void		*ft_calloc(size_t nmeb, size_t size);
-void		free_all(void *config);
+void		free_all(void *config, t_control **variables);
