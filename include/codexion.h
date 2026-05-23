@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 13:53:46 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/23 02:17:41 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/05/23 22:08:00 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_configs
 	int			number_of_compiles_required;
 	int			dongle_cooldown;
 	t_schedule	scheduler;
+	int			threads_created;
 }	t_config;
 
 typedef struct s_coder
@@ -48,6 +49,7 @@ typedef struct s_coder
 	int	time_to_refactor;
 	int	number_of_compiles_required;
 	int	number_of_compiles_done;
+	int	*is_running;
 }	t_coder;
 
 typedef struct s_dongle
@@ -70,18 +72,21 @@ int			validate_config(t_config *config);
 
 // SIMULATION METHODS
 void		simulation(t_config *config);
-void		set_coder_config(t_coder *coder, t_config *c, int id);
+void		set_coder_config(t_coder *coder, t_config *c, int id, int *is_running);
 t_control	*populate_dongles(t_config *c, int *is_running);
 t_control	*populate_coders(t_config *c, int *is_running);
 t_control	*populate_threads(t_config *c, int *is_running);
-int		create_variables(t_control ***variables, int **is_running, t_config *c);
+int			create_variables(t_control ***variables, int **is_running, t_config *c);
+int	create_threads(t_control **variables, pthread_t *monitor, pthread_t *dongles);
+int	join_threads(t_control **variables, pthread_t *monitor, pthread_t *dongles, t_config *config);
 void		free_dongles(t_control *dongles);
 void		free_coders(t_control *coders);
 void		free_threads(t_control *threads);
 
 // THREADS METHODS
 void		*monitor_routine(void *coders_info);
-void		*coder_function(void *config);
+void		*dongle_routine(void *dongles);
+void		*coder_routine(void *coder_info);
 
 // UTILS METHODS
 int			validate_integer_input(char *input);

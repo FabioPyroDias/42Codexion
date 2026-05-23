@@ -6,7 +6,7 @@
 #    By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/16 18:46:36 by fda-cruz          #+#    #+#              #
-#    Updated: 2026/05/22 21:09:27 by fda-cruz         ###   ########.fr        #
+#    Updated: 2026/05/23 22:08:51 by fda-cruz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,9 @@ UTILS_DIR = src/utils
 
 MAIN_FILE = codexion.c
 PARSER_FILES = parser.c parser_utils.c
-SIMULATION_FILES = simulation.c simulation_utils.c simulation_frees.c
-THREADS_FILES = monitor.c coder.c
+SIMULATION_FILES = simulation.c simulation_utils.c \
+				   simulation_frees.c simulation_threads.c
+THREADS_FILES = monitor.c dongle.c coder.c
 UTILS_FILES = utils.c
 
 OBJ_DIR = obj

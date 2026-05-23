@@ -6,13 +6,13 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 22:18:02 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/23 02:17:44 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/05/23 19:24:01 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/codexion.h"
 
-void	set_coder_config(t_coder *coder, t_config *c, int id)
+void	set_coder_config(t_coder *coder, t_config *c, int id, int *is_running)
 {
 	coder->coder_id = id;
 	coder->number_of_coders = c->number_of_coders;
@@ -23,6 +23,7 @@ void	set_coder_config(t_coder *coder, t_config *c, int id)
 	coder->time_to_refactor = c->time_to_refactor;
 	coder->number_of_compiles_required = c->number_of_compiles_required;
 	coder->number_of_compiles_done = 0;
+	coder->is_running = is_running;
 }
 
 t_control	*populate_dongles(t_config *c, int *is_running)
@@ -64,7 +65,7 @@ t_control	*populate_coders(t_config *c, int *is_running)
 	index = 0;
 	while (index < c->number_of_coders)
 	{
-		set_coder_config(&coders[index], c, index + 1);
+		set_coder_config(&coders[index], c, index + 1, is_running);
 		index++;
 	}
 	coders_control->data = (void *) coders;

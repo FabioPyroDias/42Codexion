@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   coder.c                                            :+:      :+:    :+:   */
+/*   dongle.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/19 21:36:18 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/23 22:07:34 by fda-cruz         ###   ########.fr       */
+/*   Created: 2026/05/23 17:42:19 by fda-cruz          #+#    #+#             */
+/*   Updated: 2026/05/23 22:08:06 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/codexion.h"
 
-void	*coder_routine(void *coder_info)
+void	*dongle_routine(void *dongles)
 {
 	return (NULL);
 }
