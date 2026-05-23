@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 13:53:46 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/22 15:26:30 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/05/23 02:17:41 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,12 @@ typedef struct s_coder
 	int	coder_id;
 	int	number_of_coders;
 	int	time_to_burnout;
+	int	current_time_to_burnout;
 	int	time_to_compile;
 	int	time_to_debug;
 	int	time_to_refactor;
 	int	number_of_compiles_required;
+	int	number_of_compiles_done;
 }	t_coder;
 
 typedef struct s_dongle
@@ -67,18 +69,19 @@ t_schedule	parse_schedule(char *schedule);
 int			validate_config(t_config *config);
 
 // SIMULATION METHODS
-void	simulation(t_config *config);
-void	set_coder_config(t_coder *coder, t_config *c, int id);
+void		simulation(t_config *config);
+void		set_coder_config(t_coder *coder, t_config *c, int id);
 t_control	*populate_dongles(t_config *c, int *is_running);
 t_control	*populate_coders(t_config *c, int *is_running);
 t_control	*populate_threads(t_config *c, int *is_running);
 int		create_variables(t_control ***variables, int **is_running, t_config *c);
-void	free_dongles(t_control *dongles);
-void	free_coders(t_control *coders);
-void	free_threads(t_control *threads);
+void		free_dongles(t_control *dongles);
+void		free_coders(t_control *coders);
+void		free_threads(t_control *threads);
 
-// CODER METHODS
-void	*coder_function(void *config);
+// THREADS METHODS
+void		*monitor_routine(void *coders_info);
+void		*coder_function(void *config);
 
 // UTILS METHODS
 int			validate_integer_input(char *input);
