@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 13:53:46 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/23 22:08:00 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/05/24 14:43:21 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void		free_threads(t_control *threads);
 
 // THREADS METHODS
 void		*monitor_routine(void *coders_info);
-void		*dongle_routine(void *dongles);
+void		*dongle_routine(void *dongle_info);
 void		*coder_routine(void *coder_info);
 
 // UTILS METHODS

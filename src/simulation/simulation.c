@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 14:12:41 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/23 22:02:17 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/05/24 15:02:49 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	simulation(t_config *config)
 
 	if (!create_variables(&variables, &is_running, config))
 		return (free_all(config, NULL));
-	*is_running = 1;
+	*is_running = 0;
 	config->threads_created = create_threads(variables, &thread_monitor, &thread_dongle);
-	if (config->threads_created != config->number_of_coders + 2)
-		*is_running = 0;
+	if (config->threads_created == config->number_of_coders + 2)
+		*is_running = 1;
 	if (join_threads(variables, &thread_monitor, &thread_dongle, config) == 0)
 		*is_running = 0;
 	free_all(config, variables);
