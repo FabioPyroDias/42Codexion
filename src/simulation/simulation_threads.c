@@ -6,13 +6,13 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 14:21:10 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/24 14:57:23 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/05/25 20:37:50 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/codexion.h"
 
-int	create_threads(t_control **variables, pthread_t *monitor,
+int	create_threads(t_container **variables, pthread_t *monitor,
 		pthread_t *dongles)
 {
 	int	index;
@@ -41,7 +41,7 @@ int	create_threads(t_control **variables, pthread_t *monitor,
 	return (threads_created);
 }
 
-int	join_threads(t_control **variables, pthread_t *monitor,
+int	join_threads(t_container **variables, pthread_t *monitor,
 		pthread_t *dongles, t_config *config)
 {
 	int	result;

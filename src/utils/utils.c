@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 20:45:24 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/22 15:29:36 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/05/25 20:37:50 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	validate_integer_input(char *input)
 	return (1);
 }
 
-void	free_all(void *config, t_control **variables)
+void	free_all(void *config, t_container **variables)
 {
 	if (config)
 		free(config);

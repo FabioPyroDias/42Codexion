@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 21:10:38 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/23 02:22:42 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/05/25 20:37:50 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	*monitor_routine(void *coders_info)
 	int			finished_count;
 	int			index;
 
-	coders = (t_coder *)((t_control *) coders_info)->data;
-	is_running = ((t_control *) coders_info)->is_running;
+	coders = (t_coder *)((t_container *) coders_info)->data;
+	is_running = ((t_container *) coders_info)->is_running;
 	while (*is_running)
 	{
 		finished_count = 0;
