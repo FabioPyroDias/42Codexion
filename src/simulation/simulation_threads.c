@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 14:21:10 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/25 20:37:50 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/05/26 16:24:30 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,26 +42,26 @@ int	create_threads(t_container **variables, pthread_t *monitor,
 }
 
 int	join_threads(t_container **variables, pthread_t *monitor,
-		pthread_t *dongles, t_config *config)
+		pthread_t *dongles, t_control *control)
 {
 	int	result;
 	int	index;
 
 	result = 1;
 	index = 0;
-	if (index < config->threads_created)
+	if (index < control->total_threads)
 	{
 		if (pthread_join(*monitor, NULL) != 0)
 			result = 0;
 	}
 	index++;
-	if (index < config->threads_created)
+	if (index < control->total_threads)
 	{
 		if (pthread_join(*dongles, NULL) != 0)
 			result = 0;
 	}
 	index++;
-	while (index < config->threads_created)
+	while (index < control->total_threads)
 	{
 		if (pthread_join(((pthread_t *) variables[2]->data)[index - 2], NULL) != 0)
 			result = 0;

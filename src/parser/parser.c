@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 21:24:07 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/23 20:11:17 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/05/26 16:23:18 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,5 @@ t_config	*parser(char *argv[])
 	config->scheduler = parse_schedule(argv[8]);
 	if (!validate_config(config))
 		return (NULL);
-	config->threads_created = 0;
 	return (config);
 }

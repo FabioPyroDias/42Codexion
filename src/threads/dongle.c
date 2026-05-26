@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 17:42:19 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/25 20:37:51 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/05/26 16:29:08 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,12 @@
 void	*dongle_routine(void *dongle_info)
 {
 	t_dongle	*dongles;
-	int			*is_running;
+	t_control	*control;
 
 	dongles = (t_dongle *)((t_container *) dongle_info)->data;
-	is_running = (int *)((t_container *) dongle_info)->is_running;
+	control = (t_control *)((t_container *) dongle_info)->control;
 	dongles = NULL;
-	printf("I AM DONGLES\n");
-	while(*is_running)
-	{
-		printf("I am dongle routine\n");
-		sleep(2);
-	}
-	printf("I am here\n");
+	if (control->is_running)
+		control = NULL;
 	return (dongles);
 }

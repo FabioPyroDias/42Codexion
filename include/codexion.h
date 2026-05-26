@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 13:53:46 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/26 16:15:20 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/05/26 16:24:48 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_container	*populate_coders(t_config *c, t_control *control);
 t_container	*populate_threads(t_config *c, t_control *control);
 int			create_variables(t_container ***variables, t_control **control, t_config *c);
 int	create_threads(t_container **variables, pthread_t *monitor, pthread_t *dongles);
-int	join_threads(t_container **variables, pthread_t *monitor, pthread_t *dongles, t_config *config);
+int	join_threads(t_container **variables, pthread_t *monitor, pthread_t *dongles, t_control *control);
 void		free_control(t_control *control);
 void		free_dongles(t_container *dongles);
 void		free_coders(t_container *coders);
