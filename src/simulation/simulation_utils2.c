@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 11:53:26 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/26 16:14:59 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/05/28 16:19:32 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	initialize_control(t_control *control)
 	control->ready_count = 0;
 	control->total_threads = 0;
 	control->start_time = 0;
+	control->error = 0;
 	if (pthread_mutex_init(&(control->mutex), NULL) != 0)
 		return (0);
 	if (pthread_cond_init(&(control->condition), NULL) != 0)

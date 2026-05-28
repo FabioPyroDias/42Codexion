@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 20:45:24 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/26 12:32:03 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/05/28 17:07:13 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,4 @@ int	validate_integer_input(char *input)
 		index++;
 	}
 	return (1);
-}
-
-void	free_all(void *config, t_container **variables)
-{
-	if (config)
-		free(config);
-	if (variables)
-	{
-		free_dongles(variables[0]);
-		free_coders(variables[1]);
-		free_threads(variables[2]);
-		free(variables);
-	}
 }

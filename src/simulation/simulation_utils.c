@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 22:18:02 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/26 12:29:20 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/05/28 17:21:54 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,89 +25,73 @@ void	set_coder_config(t_coder *coder, t_config *c, int id, t_control *control)
 	coder->control = control;
 }
 
-t_container	*populate_dongles(t_config *c, t_control *control)
+t_dongle	*populate_dongles(t_config *c)
 {
-	t_container	*dongles_control;
 	t_dongle	*dongles;
 	int			index;
 
-	dongles_control = malloc(sizeof(t_container));
-	if (!dongles_control)
-		return (NULL);
 	dongles = malloc(sizeof(t_dongle) * c->number_of_coders);
 	if (!dongles)
-		return (free(dongles_control), NULL);
+		return (NULL);
 	index = 0;
 	while (index < c->number_of_coders)
 	{
 		dongles[index].number_of_dongles = c->number_of_coders;
 		dongles[index].cooldown_time = c->dongle_cooldown;
+		//Talvez precise de outra propriedade.
 		index++;
 	}
-	dongles_control->data = (void *) dongles;
-	dongles_control->control = control;
-	return (dongles_control);
+	return (dongles);
 }
 
-t_container	*populate_coders(t_config *c, t_control *control)
+t_coder	*populate_coders(t_config *c, t_control *control)
 {
-	t_container	*coders_control;
 	t_coder		*coders;
 	int			index;
 
-	coders_control = malloc(sizeof(t_container));
-	if (!coders_control)
-		return (NULL);
 	coders = malloc(sizeof(t_coder) * c->number_of_coders);
 	if (!coders)
-		return (free(coders_control), NULL);
+		return (NULL);
 	index = 0;
 	while (index < c->number_of_coders)
 	{
 		set_coder_config(&coders[index], c, index + 1, control);
 		index++;
 	}
-	coders_control->data = (void *) coders;
-	coders_control->control = control;
-	return (coders_control);
+	return (coders);
 }
 
-t_container	*populate_threads(t_config *c, t_control *control)
+pthread_t	*populate_threads(t_config *c)
 {
-	t_container	*threads_control;
 	pthread_t	*threads;
 
-	threads_control = malloc(sizeof(t_container));
-	if (!threads_control)
-		return (NULL);
 	threads = malloc(sizeof(pthread_t) * c->number_of_coders);
 	if (!threads)
-		return (free(threads_control), NULL);
-	threads_control->data = (void *) threads;
-	threads_control->control = control;
-	return (threads_control);
+		return (NULL);
+	return (threads);
 }
 
-int	create_variables(t_container ***variables, t_control **control, t_config *c)
+int	create_variables(t_monitor **monitor, t_control **control, t_config *c)
 {
-	*control = malloc(sizeof(control));
-	if (!*control)
+	*monitor = malloc(sizeof(t_monitor));
+	if (!*monitor)
 		return (0);
+	*control = malloc(sizeof(t_control));
+	if (!*control)
+		return (free(*monitor), 0);
 	if (!initialize_control(*control))
-		return (free(*control), 0);
-	*variables = malloc(sizeof(t_container *) * 3);
-	if (!*variables)
-		return (free_control(*control), 0);
-	(*variables)[0] = populate_dongles(c, *control);
-	if (!(*variables)[0])
-		return (free_control(*control), free(*variables), 0);
-	(*variables)[1] = populate_coders(c, *control);
-	if (!(*variables)[1])
-		return (free_control(*control), free_dongles((*variables)[0]),
-			free(*variables), 0);
-	(*variables)[2] = populate_threads(c, *control);
-	if (!(*variables)[2])
-		return (free_control(*control), free_dongles((*variables)[0]),
-			free_coders((*variables)[1]), free(*variables), 0);
+		return (free(*monitor), free(*control), 0);
+	(*monitor)->dongles = populate_dongles(c);
+	if (!(*monitor)->dongles)
+		return (free(*monitor), free_control(*control), 0);
+	(*monitor)->coders_info = populate_coders(c, *control);
+	if (!(*monitor)->coders_info)
+		return (free((*monitor)->dongles), free(*monitor),
+			free_control(*control), 0);
+	(*monitor)->threads = populate_threads(c);
+	if (!(*monitor)->threads)
+		return (free((*monitor)->dongles), free((*monitor)->coders_info),
+			free(*monitor), free_control(*control), 0);
+	(*monitor)->control = *control;
 	return (1);
 }

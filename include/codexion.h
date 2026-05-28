@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 13:53:46 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/26 16:24:48 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/05/28 17:22:45 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_control
 	int				ready_count;
 	int				total_threads;
 	long			start_time;
+	int				error;
 	pthread_mutex_t	mutex;
 	pthread_cond_t	condition;
 }	t_control;
@@ -75,11 +76,13 @@ typedef struct s_dongle
 	int	number_of_dongles;
 }	t_dongle;
 
-typedef struct s_container
+typedef struct s_monitor
 {
-	void		*data;
+	t_dongle	*dongles;
+	t_coder		*coders_info;
+	pthread_t	*threads;
 	t_control	*control;
-}	t_container;
+}	t_monitor;
 
 // PARSER METHODS
 t_config	*parser(char *argv[]);
@@ -92,22 +95,18 @@ void		simulation(t_config *config);
 int			initialize_control(t_control *control);
 long		get_current_time();
 void		set_coder_config(t_coder *coder, t_config *c, int id, t_control *control);
-t_container	*populate_dongles(t_config *c, t_control *control);
-t_container	*populate_coders(t_config *c, t_control *control);
-t_container	*populate_threads(t_config *c, t_control *control);
-int			create_variables(t_container ***variables, t_control **control, t_config *c);
-int	create_threads(t_container **variables, pthread_t *monitor, pthread_t *dongles);
-int	join_threads(t_container **variables, pthread_t *monitor, pthread_t *dongles, t_control *control);
+t_dongle	*populate_dongles(t_config *c);
+t_coder		*populate_coders(t_config *c, t_control *control);
+pthread_t	*populate_threads(t_config *c);
+int			create_variables(t_monitor **monitor, t_control **control, t_config *c);
+int			create_threads(t_monitor *monitor, pthread_t *monitor_thread, t_config *c);
+int			join_threads(t_monitor *monitor, pthread_t *monitor_thread, t_control *control);
+void		free_monitor(t_monitor *monitor);
 void		free_control(t_control *control);
-void		free_dongles(t_container *dongles);
-void		free_coders(t_container *coders);
-void		free_threads(t_container *threads);
 
 // THREADS METHODS
 void		*monitor_routine(void *coders_info);
-void		*dongle_routine(void *dongle_info);
 void		*coder_routine(void *coder_info);
 
 // UTILS METHODS
 int			validate_integer_input(char *input);
-void		free_all(void *config, t_container **variables);
