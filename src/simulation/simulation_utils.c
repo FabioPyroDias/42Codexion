@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 22:18:02 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/01 03:28:23 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/01 03:54:04 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	set_coder_config(t_coder *coder, t_config *c, int id, t_control *control)
 {
 	coder->coder_id = id;
-	coder->number_of_coders = c->number_of_coders;
 	coder->time_to_burnout = c->time_to_burnout;
 	coder->time_to_compile = c->time_to_compile;
 	coder->time_to_debug = c->time_to_debug;
@@ -41,6 +40,7 @@ t_dongle	*populate_dongles(t_config *c)
 	while (index < c->number_of_coders)
 	{
 		dongles[index].occupied = 0;
+		dongles[index].cooldown_time = c->dongle_cooldown;
 		dongles[index].last_release_time = 0;
 		index++;
 	}

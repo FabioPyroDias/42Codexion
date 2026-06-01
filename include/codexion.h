@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 13:53:46 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/01 03:34:42 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/01 03:56:36 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef struct s_control
 	int				total_threads;
 	long			start_time;
 	int				error;
-	int				number_of_coders;
 	pthread_mutex_t	mutex;
 	pthread_cond_t	condition;
 }	t_control;
@@ -62,7 +61,6 @@ typedef enum operations
 typedef struct s_coder
 {
 	int				coder_id;
-	int				number_of_coders;
 	int				time_to_burnout;
 	int				time_to_compile;
 	int				time_to_debug;
@@ -79,6 +77,7 @@ typedef struct s_coder
 typedef struct s_dongle
 {
 	int		occupied;
+	int		cooldown_time;
 	long	last_release_time;
 }	t_dongle;
 
