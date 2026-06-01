@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 21:24:07 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/26 16:23:18 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/05/31 20:06:36 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ t_config	*parser(char *argv[])
 	config->dongle_cooldown = parse_positive_int(argv[7]);
 	config->scheduler = parse_schedule(argv[8]);
 	if (!validate_config(config))
-		return (NULL);
+		return (free(config), NULL);
 	return (config);
 }

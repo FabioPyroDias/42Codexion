@@ -6,13 +6,13 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 11:53:26 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/28 16:19:32 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/01 03:14:26 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/codexion.h"
 
-int	initialize_control(t_control *control)
+int	initialize_control(t_control *control, t_config *c)
 {
 	control->start = 0;
 	control->is_running = 0;
@@ -20,6 +20,7 @@ int	initialize_control(t_control *control)
 	control->total_threads = 0;
 	control->start_time = 0;
 	control->error = 0;
+	control->number_of_coders = c->number_of_coders;
 	if (pthread_mutex_init(&(control->mutex), NULL) != 0)
 		return (0);
 	if (pthread_cond_init(&(control->condition), NULL) != 0)

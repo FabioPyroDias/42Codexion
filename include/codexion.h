@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 13:53:46 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/28 17:22:45 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/01 03:34:42 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,15 @@ typedef struct s_control
 	int				total_threads;
 	long			start_time;
 	int				error;
+	int				number_of_coders;
 	pthread_mutex_t	mutex;
 	pthread_cond_t	condition;
 }	t_control;
 
 typedef enum operations
 {
+	IDLE,
+	REQUESTING,
 	COMPILING,
 	DEBUGGING,
 	REFACTORING
@@ -66,14 +69,17 @@ typedef struct s_coder
 	int				time_to_refactor;
 	int				number_of_compiles_required;
 	int				number_of_compiles_done;
+	int				has_left_dongle;
+	int				has_right_dongle;
+	long			last_compile_time;
 	t_operations	current_operation;
 	t_control		*control;
 }	t_coder;
 
 typedef struct s_dongle
 {
-	int	cooldown_time;
-	int	number_of_dongles;
+	int		occupied;
+	long	last_release_time;
 }	t_dongle;
 
 typedef struct s_monitor
@@ -92,7 +98,7 @@ int			validate_config(t_config *config);
 
 // SIMULATION METHODS
 void		simulation(t_config *config);
-int			initialize_control(t_control *control);
+int		initialize_control(t_control *control, t_config *c);
 long		get_current_time();
 void		set_coder_config(t_coder *coder, t_config *c, int id, t_control *control);
 t_dongle	*populate_dongles(t_config *c);
