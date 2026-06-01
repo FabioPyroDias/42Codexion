@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 13:53:46 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/01 03:56:36 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/01 04:01:08 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_dongle
 
 typedef struct s_monitor
 {
+	int			number_of_coders;
 	t_dongle	*dongles;
 	t_coder		*coders_info;
 	pthread_t	*threads;

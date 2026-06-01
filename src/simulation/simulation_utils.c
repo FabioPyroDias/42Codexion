@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 22:18:02 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/01 03:54:04 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/01 04:05:04 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int	create_variables(t_monitor **monitor, t_control **control, t_config *c)
 	*monitor = malloc(sizeof(t_monitor));
 	if (!*monitor)
 		return (0);
+	(*monitor)->number_of_coders = c->number_of_coders;
 	*control = malloc(sizeof(t_control));
 	if (!*control)
 		return (free(*monitor), 0);
