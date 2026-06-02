@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 02:27:59 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/28 17:20:35 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/02 21:13:55 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,20 @@
 
 void	free_monitor(t_monitor *monitor)
 {
+	int	index;
+
 	if (monitor->dongles)
 		free(monitor->dongles);
 	if (monitor->coders_info)
+	{
+		index = 0;
+		while(index < monitor->number_of_coders)
+		{
+			pthread_mutex_destroy(&monitor->coders_info[index].mutex);
+			index++;
+		}
 		free(monitor->coders_info);
+	}
 	if (monitor->threads)
 		free(monitor->threads);
 	free(monitor);

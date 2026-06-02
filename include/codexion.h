@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 13:53:46 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/01 04:01:08 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/02 21:13:01 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ typedef enum operations
 	REQUESTING,
 	COMPILING,
 	DEBUGGING,
-	REFACTORING
+	REFACTORING,
+	DONE
 }	t_operations;
 
 typedef struct s_coder
@@ -71,6 +72,7 @@ typedef struct s_coder
 	int				has_right_dongle;
 	long			last_compile_time;
 	t_operations	current_operation;
+	pthread_mutex_t	mutex;
 	t_control		*control;
 }	t_coder;
 
@@ -98,9 +100,9 @@ int			validate_config(t_config *config);
 
 // SIMULATION METHODS
 void		simulation(t_config *config);
-int		initialize_control(t_control *control, t_config *c);
+int			initialize_control(t_control *control, t_config *c);
 long		get_current_time();
-void		set_coder_config(t_coder *coder, t_config *c, int id, t_control *control);
+int			set_coder_config(t_coder *coder, t_config *c, int id, t_control *control);
 t_dongle	*populate_dongles(t_config *c);
 t_coder		*populate_coders(t_config *c, t_control *control);
 pthread_t	*populate_threads(t_config *c);
@@ -113,6 +115,11 @@ void		free_control(t_control *control);
 // THREADS METHODS
 void		*monitor_routine(void *coders_info);
 void		*coder_routine(void *coder_info);
+void		coder_request(t_coder *coder, t_control *control);
+void		coder_compile(t_coder *coder, t_control *control);
+void		coder_debug(t_coder *coder, t_control *control);
+void		coder_refactor(t_coder *coder, t_control *control);
+void		coder_work(t_coder *coder, t_control *control);
 
 // UTILS METHODS
 int			validate_integer_input(char *input);

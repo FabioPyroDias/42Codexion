@@ -6,13 +6,13 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 22:18:02 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/01 04:05:04 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/02 21:09:55 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/codexion.h"
 
-void	set_coder_config(t_coder *coder, t_config *c, int id, t_control *control)
+int	set_coder_config(t_coder *coder, t_config *c, int id, t_control *control)
 {
 	coder->coder_id = id;
 	coder->time_to_burnout = c->time_to_burnout;
@@ -25,7 +25,10 @@ void	set_coder_config(t_coder *coder, t_config *c, int id, t_control *control)
 	coder->has_right_dongle = 0;
 	coder->last_compile_time = 0;
 	coder->current_operation = IDLE;
+	if (pthread_mutex_init(&(coder->mutex), NULL) != 0)
+		return (0);
 	coder->control = control;
+	return (1);
 }
 
 t_dongle	*populate_dongles(t_config *c)
@@ -58,7 +61,15 @@ t_coder	*populate_coders(t_config *c, t_control *control)
 	index = 0;
 	while (index < c->number_of_coders)
 	{
-		set_coder_config(&coders[index], c, index + 1, control);
+		if (!set_coder_config(&coders[index], c, index + 1, control))
+		{
+			while (index > 0)
+			{
+				index--;
+				pthread_mutex_destroy(&coders[index].mutex);
+			}
+			return (free(coders), NULL);
+		}
 		index++;
 	}
 	return (coders);
@@ -80,22 +91,23 @@ int	create_variables(t_monitor **monitor, t_control **control, t_config *c)
 	if (!*monitor)
 		return (0);
 	(*monitor)->number_of_coders = c->number_of_coders;
+	(*monitor)->dongles = NULL;
+	(*monitor)->coders_info = NULL;
+	(*monitor)->threads = NULL;
 	*control = malloc(sizeof(t_control));
 	if (!*control)
-		return (free(*monitor), 0);
+		return (free_monitor(*monitor), 0);
 	if (!initialize_control(*control, c))
-		return (free(*monitor), free(*control), 0);
+		return (free_monitor(*monitor), free(*control), 0);
 	(*monitor)->dongles = populate_dongles(c);
 	if (!(*monitor)->dongles)
-		return (free(*monitor), free_control(*control), 0);
+		return (free_monitor(*monitor), free_control(*control), 0);
 	(*monitor)->coders_info = populate_coders(c, *control);
 	if (!(*monitor)->coders_info)
-		return (free((*monitor)->dongles), free(*monitor),
-			free_control(*control), 0);
+		return (free_monitor(*monitor), free_control(*control), 0);
 	(*monitor)->threads = populate_threads(c);
 	if (!(*monitor)->threads)
-		return (free((*monitor)->dongles), free((*monitor)->coders_info),
-			free(*monitor), free_control(*control), 0);
+		return (free_monitor(*monitor), free_control(*control), 0);
 	(*monitor)->control = *control;
 	return (1);
 }
