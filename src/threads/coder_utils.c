@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 23:34:02 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/02 20:50:57 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/03 16:48:23 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ void	coder_request(t_coder *coder, t_control *control)
 	while (!(coder->has_left_dongle && coder->has_right_dongle))
 	{
 		if (!control->is_running)
-			break;
+		{
+			pthread_mutex_unlock(&control->mutex);
+			return ;
+		}
 		pthread_cond_wait(&control->condition, &control->mutex);
 	}
 	pthread_mutex_unlock(&control->mutex);
@@ -116,9 +119,18 @@ void	coder_work(t_coder *coder, t_control *control)
 	else if (current_operation == IDLE || current_operation == REQUESTING)
 		coder_request(coder, control);
 	else if (current_operation == COMPILING)
+	{
+		print_message(control, coder->coder_id, "is compiling");
 		coder_compile(coder, control);
+	}
 	else if (current_operation == DEBUGGING)
+	{
+		print_message(control, coder->coder_id, "is debugging");
 		coder_debug(coder, control);
+	}
 	else if (current_operation == REFACTORING)
+	{
+		print_message(control, coder->coder_id, "is refactoring");
 		coder_refactor(coder, control);
+	}
 }

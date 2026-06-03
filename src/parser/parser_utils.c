@@ -6,11 +6,25 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 19:36:34 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/01 03:10:17 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/03 15:51:57 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/codexion.h"
+
+int	validate_integer_input(char *input)
+{
+	int	index;
+
+	index = 0;
+	while (input[index])
+	{
+		if (input[index] < '0' || input[index] > '9')
+			return (0);
+		index++;
+	}
+	return (1);
+}
 
 int	parse_positive_int(char *positive_int)
 {

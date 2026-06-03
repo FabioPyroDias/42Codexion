@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 02:27:59 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/02 21:13:55 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/03 16:16:05 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	free_monitor(t_monitor *monitor)
 void	free_control(t_control *control)
 {
 	pthread_mutex_destroy(&(control->mutex));
+	pthread_mutex_destroy(&(control->mutex_print));
 	pthread_cond_destroy(&(control->condition));
 	free(control);
 }
