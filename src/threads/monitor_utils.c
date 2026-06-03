@@ -1,38 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   coder.c                                            :+:      :+:    :+:   */
+/*   monitor_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/19 21:36:18 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/03 21:34:46 by fda-cruz         ###   ########.fr       */
+/*   Created: 2026/06/03 21:14:50 by fda-cruz          #+#    #+#             */
+/*   Updated: 2026/06/03 21:59:42 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/codexion.h"
 
-void	*coder_routine(void *coder_info)
+void	monitor_work(t_monitor *coder, t_control *control, t_heap *heap)
 {
-	t_coder		*coder;
-	t_control	*control;
-	int			is_running;
+	int	is_running;
 
-	coder = (t_coder *) coder_info;
-	control = coder->control;
 	pthread_mutex_lock(&control->mutex);
-	control->ready_count++;
-	pthread_cond_broadcast(&control->condition);
-	while (!control->start)
-		pthread_cond_wait(&control->condition, &control->mutex);
 	is_running = control->is_running;
 	pthread_mutex_unlock(&control->mutex);
 	while (is_running)
 	{
-		coder_work(coder, control);
-		pthread_mutex_lock(&control->mutex);
-		is_running = control->is_running;
-		pthread_mutex_unlock(&control->mutex);
+		
 	}
-	return (NULL);
+	return ;
 }

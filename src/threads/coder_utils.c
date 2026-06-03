@@ -6,11 +6,11 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 23:34:02 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/03 16:48:23 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/03 21:35:15 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../include/codexion.h"
+#include "../../include/codexion.h"
 
 void	coder_request(t_coder *coder, t_control *control)
 {
@@ -74,7 +74,7 @@ void	coder_debug(t_coder *coder, t_control *control)
 		if (!control->is_running)
 		{
 			pthread_mutex_unlock(&control->mutex);
-			return;
+			return ;
 		}
 		pthread_mutex_unlock(&control->mutex);
 		usleep(1000);
@@ -97,7 +97,7 @@ void	coder_refactor(t_coder *coder, t_control *control)
 		if (!control->is_running)
 		{
 			pthread_mutex_unlock(&control->mutex);
-			return;
+			return ;
 		}
 		pthread_mutex_unlock(&control->mutex);
 		usleep(1000);

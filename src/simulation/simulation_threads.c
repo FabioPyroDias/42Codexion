@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 14:21:10 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/01 03:44:12 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/03 21:36:33 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int	join_threads(t_monitor *monitor, pthread_t *monitor_thread, t_control *contr
 	index++;
 	while (index < control->total_threads)
 	{
-		if (pthread_join(((pthread_t *) monitor->threads)[index - 1], NULL) != 0)
+		if (pthread_join(((pthread_t *) monitor->threads)[index - 1],
+			NULL) != 0)
 			result = 0;
 		index++;
 	}

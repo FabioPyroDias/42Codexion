@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 13:53:46 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/03 16:40:59 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/03 21:56:23 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,13 @@ typedef struct s_monitor
 	t_control	*control;
 }	t_monitor;
 
+typedef struct s_heap
+{
+	t_coder	**coders;
+	int		size;
+	int		capacity;
+}	t_heap;
+
 // PARSER METHODS
 t_config	*parser(char *argv[]);
 int			parse_positive_int(char *positive_int);
@@ -102,8 +109,9 @@ int			validate_config(t_config *config);
 // SIMULATION METHODS
 void		simulation(t_config *config);
 int			initialize_control(t_control *control, t_config *c);
-long		get_current_time();
-void		print_message(t_control *control, int id, char* message);
+void		initialize_heap(t_heap **heap, int capacity);
+long		get_current_time(void);
+void		print_message(t_control *control, int id, char *message);
 int			set_coder_config(t_coder *coder, t_config *c, int id, t_control *control);
 t_dongle	*populate_dongles(t_config *c);
 t_coder		*populate_coders(t_config *c, t_control *control);
@@ -113,9 +121,10 @@ int			create_threads(t_monitor *monitor, pthread_t *monitor_thread, t_config *c)
 int			join_threads(t_monitor *monitor, pthread_t *monitor_thread, t_control *control);
 void		free_monitor(t_monitor *monitor);
 void		free_control(t_control *control);
+void		free_heap(t_heap *heap);
 
 // THREADS METHODS
-void		*monitor_routine(void *coders_info);
+void		monitor_work(t_monitor *coder, t_control *control, t_heap *heap);
 void		*coder_routine(void *coder_info);
 void		coder_request(t_coder *coder, t_control *control);
 void		coder_compile(t_coder *coder, t_control *control);

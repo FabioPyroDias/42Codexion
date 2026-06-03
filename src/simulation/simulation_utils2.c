@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 11:53:26 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/03 16:40:39 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/03 21:56:11 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,23 @@ int	initialize_control(t_control *control, t_config *c)
 	return (1);
 }
 
-long	get_current_time()
+void	initialize_heap(t_heap **heap, int capacity)
+{
+	*heap = malloc(sizeof(t_heap));
+	if (!*heap)
+		return ;
+	(*heap)->coders = malloc(sizeof(t_coder *) * capacity);
+	if (!(*heap)->coders)
+	{
+		free(*heap);
+		heap = NULL;
+		return ;
+	}
+	(*heap)->size = 0;
+	(*heap)->capacity = capacity;
+}
+
+long	get_current_time(void)
 {
 	struct timeval	time;
 
@@ -44,7 +60,7 @@ long	get_current_time()
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-void	print_message(t_control *control, int id, char* message)
+void	print_message(t_control *control, int id, char *message)
 {
 	pthread_mutex_lock(&control->mutex_print);
 	printf("%ld %d %s\n", get_current_time() - control->start_time,

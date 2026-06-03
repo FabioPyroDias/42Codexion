@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 02:27:59 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/03 16:16:05 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/03 21:54:08 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	free_monitor(t_monitor *monitor)
 	if (monitor->coders_info)
 	{
 		index = 0;
-		while(index < monitor->number_of_coders)
+		while (index < monitor->number_of_coders)
 		{
 			pthread_mutex_destroy(&monitor->coders_info[index].mutex);
 			index++;
@@ -39,4 +39,12 @@ void	free_control(t_control *control)
 	pthread_mutex_destroy(&(control->mutex_print));
 	pthread_cond_destroy(&(control->condition));
 	free(control);
+}
+
+void	free_heap(t_heap *heap)
+{
+	if (!heap)
+		return ;
+	free(heap->coders);
+	free(heap);
 }

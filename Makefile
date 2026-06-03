@@ -6,7 +6,7 @@
 #    By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/16 18:46:36 by fda-cruz          #+#    #+#              #
-#    Updated: 2026/06/03 15:52:29 by fda-cruz         ###   ########.fr        #
+#    Updated: 2026/06/03 21:31:26 by fda-cruz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ PARSER_FILES = parser.c parser_utils.c
 SIMULATION_FILES =	simulation.c simulation_utils.c \
 					simulation_utils2.c simulation_frees.c \
 					simulation_threads.c
-THREADS_FILES = monitor.c coder.c coder_utils.c
+THREADS_FILES = coder.c coder_utils.c monitor.c monitor_utils.c
 
 OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/,$(MAIN_FILE:.c=.o))
