@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 13:53:46 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/03 21:56:23 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/06 20:35:34 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_control
 	pthread_mutex_t	mutex;
 	pthread_mutex_t	mutex_print;
 	pthread_cond_t	condition;
+	t_schedule		schedule;
 }	t_control;
 
 typedef enum operations
@@ -69,6 +70,7 @@ typedef struct s_coder
 	int				time_to_refactor;
 	int				number_of_compiles_required;
 	int				number_of_compiles_done;
+	long			request_time;
 	int				has_left_dongle;
 	int				has_right_dongle;
 	long			last_compile_time;
@@ -79,6 +81,7 @@ typedef struct s_coder
 
 typedef struct s_dongle
 {
+	int		is_ready;
 	int		occupied;
 	int		cooldown_time;
 	long	last_release_time;
@@ -124,13 +127,18 @@ void		free_control(t_control *control);
 void		free_heap(t_heap *heap);
 
 // THREADS METHODS
-void		monitor_work(t_monitor *coder, t_control *control, t_heap *heap);
+void		*monitor_routine(void *monitor_info);
+void		monitor_work(t_monitor *monitor, t_control *control, t_heap *heap);
+int			check_burnout(t_monitor *monitor, t_control *control);
+int			check_compiles(t_monitor *monitor, t_control *control);
+void		update_dongles(t_monitor *monitor);
+void		schedule_dongles(t_monitor *monitor, t_control *control);
 void		*coder_routine(void *coder_info);
+void		coder_work(t_coder *coder, t_control *control);
 void		coder_request(t_coder *coder, t_control *control);
 void		coder_compile(t_coder *coder, t_control *control);
 void		coder_debug(t_coder *coder, t_control *control);
 void		coder_refactor(t_coder *coder, t_control *control);
-void		coder_work(t_coder *coder, t_control *control);
 
 // UTILS METHODS
 int			validate_integer_input(char *input);

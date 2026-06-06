@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 23:34:02 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/03 21:35:15 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/06 20:35:38 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	coder_request(t_coder *coder, t_control *control)
 {
 	pthread_mutex_lock(&coder->mutex);
 	coder->current_operation = REQUESTING;
+	coder->request_time = get_current_time();
 	pthread_mutex_unlock(&coder->mutex);
 	pthread_mutex_lock(&control->mutex);
 	while (!(coder->has_left_dongle && coder->has_right_dongle))

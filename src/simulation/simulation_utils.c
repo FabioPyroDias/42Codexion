@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 22:18:02 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/02 21:09:55 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/06 20:33:30 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	set_coder_config(t_coder *coder, t_config *c, int id, t_control *control)
 	coder->time_to_refactor = c->time_to_refactor;
 	coder->number_of_compiles_required = c->number_of_compiles_required;
 	coder->number_of_compiles_done = 0;
+	coder->request_time = 0;
 	coder->has_left_dongle = 0;
 	coder->has_right_dongle = 0;
 	coder->last_compile_time = 0;
@@ -42,6 +43,7 @@ t_dongle	*populate_dongles(t_config *c)
 	index = 0;
 	while (index < c->number_of_coders)
 	{
+		dongles[index].is_ready = 1;
 		dongles[index].occupied = 0;
 		dongles[index].cooldown_time = c->dongle_cooldown;
 		dongles[index].last_release_time = 0;

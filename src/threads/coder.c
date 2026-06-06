@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 21:36:18 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/03 21:34:46 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/04 17:18:41 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ void	*coder_routine(void *coder_info)
 		pthread_cond_wait(&control->condition, &control->mutex);
 	is_running = control->is_running;
 	pthread_mutex_unlock(&control->mutex);
+	pthread_mutex_lock(&coder->mutex);
+	coder->last_compile_time = get_current_time();
+	pthread_mutex_unlock(&coder->mutex);
 	while (is_running)
 	{
 		coder_work(coder, control);

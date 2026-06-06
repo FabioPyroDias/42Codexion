@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 11:53:26 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/03 21:56:11 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/04 16:09:16 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	initialize_control(t_control *control, t_config *c)
 		pthread_mutex_destroy(&control->mutex_print);
 		return (0);
 	}
+	control->schedule = c->scheduler;
 	return (1);
 }
 
