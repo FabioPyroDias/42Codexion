@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 13:53:46 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/06 20:35:34 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/07 16:41:11 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ typedef struct s_heap
 
 // PARSER METHODS
 t_config	*parser(char *argv[]);
+int			validate_integer_input(char *input);
 int			parse_positive_int(char *positive_int);
 t_schedule	parse_schedule(char *schedule);
 int			validate_config(t_config *config);
@@ -140,5 +141,9 @@ void		coder_compile(t_coder *coder, t_control *control);
 void		coder_debug(t_coder *coder, t_control *control);
 void		coder_refactor(t_coder *coder, t_control *control);
 
-// UTILS METHODS
-int			validate_integer_input(char *input);
+//HEAP METHODS
+void		heap_shift_right(t_heap *heap, int stop_index);
+void		heap_push(t_heap *heap, t_coder *coder, t_control *control);
+t_coder		*heap_pop(t_heap *heap);
+int			heap_contains(t_heap *heap, t_coder *coder);
+int			heap_compare(t_coder *coder1, t_coder *coder2, t_control *control);
