@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 13:53:46 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/07 16:41:11 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/08 13:56:30 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,13 +116,14 @@ int			initialize_control(t_control *control, t_config *c);
 void		initialize_heap(t_heap **heap, int capacity);
 long		get_current_time(void);
 void		print_message(t_control *control, int id, char *message);
+void		set_dongle(t_dongle *dongle, int occupied, int is_ready, int released);
 int			set_coder_config(t_coder *coder, t_config *c, int id, t_control *control);
 t_dongle	*populate_dongles(t_config *c);
 t_coder		*populate_coders(t_config *c, t_control *control);
 pthread_t	*populate_threads(t_config *c);
 int			create_variables(t_monitor **monitor, t_control **control, t_config *c);
 int			create_threads(t_monitor *monitor, pthread_t *monitor_thread, t_config *c);
-int			join_threads(t_monitor *monitor, pthread_t *monitor_thread, t_control *control);
+int			join_threads(t_monitor *monitor, pthread_t *thread, t_control *control);
 void		free_monitor(t_monitor *monitor);
 void		free_control(t_control *control);
 void		free_heap(t_heap *heap);
@@ -133,7 +134,10 @@ void		monitor_work(t_monitor *monitor, t_control *control, t_heap *heap);
 int			check_burnout(t_monitor *monitor, t_control *control);
 int			check_compiles(t_monitor *monitor, t_control *control);
 void		update_dongles(t_monitor *monitor);
-void		schedule_dongles(t_monitor *monitor, t_control *control);
+void		schedule_dongles(t_heap *heap, t_monitor *monitor, t_control *control);
+void		update_requests(t_heap *heap, t_monitor *monitor, t_control *control);
+void		release_dongles(t_monitor *monitor, t_control *control);
+int			assign_dongles(t_heap *heap, t_monitor *monitor, t_control *control);
 void		*coder_routine(void *coder_info);
 void		coder_work(t_coder *coder, t_control *control);
 void		coder_request(t_coder *coder, t_control *control);

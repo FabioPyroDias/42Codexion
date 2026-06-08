@@ -6,7 +6,7 @@
 #    By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/16 18:46:36 by fda-cruz          #+#    #+#              #
-#    Updated: 2026/06/07 14:41:23 by fda-cruz         ###   ########.fr        #
+#    Updated: 2026/06/08 13:53:34 by fda-cruz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ PARSER_FILES = parser.c parser_utils.c
 SIMULATION_FILES =	simulation.c simulation_utils.c \
 					simulation_utils2.c simulation_frees.c \
 					simulation_threads.c
-THREADS_FILES = coder.c coder_utils.c monitor.c monitor_utils.c
+THREADS_FILES = 	coder.c coder_utils.c monitor.c \
+					monitor_utils.c monitor_utils2.c
 HEAP_FILE = heap.c
 
 OBJ_DIR = obj
