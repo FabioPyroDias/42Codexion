@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 21:14:50 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/08 14:02:57 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/08 15:30:25 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,9 @@ void	monitor_work(t_monitor *monitor, t_control *control, t_heap *heap)
 	while (is_running)
 	{
 		if (check_burnout(monitor, control))
-			return ;
+			break ;
 		if (check_compiles(monitor, control))
-			return ;
+			break ;
 		update_dongles(monitor);
 		schedule_dongles(heap, monitor, control);
 		pthread_mutex_lock(&control->mutex);
@@ -109,5 +109,8 @@ void	monitor_work(t_monitor *monitor, t_control *control, t_heap *heap)
 		pthread_mutex_unlock(&control->mutex);
 		usleep(1);
 	}
+	pthread_mutex_lock(&control->mutex);
+	pthread_cond_broadcast(&control->condition);
+	pthread_mutex_unlock(&control->mutex);
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 21:36:18 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/04 17:18:41 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/08 16:42:03 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ void	*coder_routine(void *coder_info)
 		is_running = control->is_running;
 		pthread_mutex_unlock(&control->mutex);
 	}
+	printf("C%d - THREAD OVER\n", coder->coder_id);
 	return (NULL);
 }
