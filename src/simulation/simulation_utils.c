@@ -6,13 +6,13 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 22:18:02 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/06 20:33:30 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/09 14:41:00 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/codexion.h"
 
-int	set_coder_config(t_coder *coder, t_config *c, int id, t_control *control)
+int	set_coder(t_coder *coder, t_config *c, int id, t_control *control)
 {
 	coder->coder_id = id;
 	coder->time_to_burnout = c->time_to_burnout;
@@ -63,7 +63,7 @@ t_coder	*populate_coders(t_config *c, t_control *control)
 	index = 0;
 	while (index < c->number_of_coders)
 	{
-		if (!set_coder_config(&coders[index], c, index + 1, control))
+		if (!set_coder(&coders[index], c, index + 1, control))
 		{
 			while (index > 0)
 			{
@@ -87,7 +87,7 @@ pthread_t	*populate_threads(t_config *c)
 	return (threads);
 }
 
-int	create_variables(t_monitor **monitor, t_control **control, t_config *c)
+int	create_var(t_monitor **monitor, t_control **control, t_config *c)
 {
 	*monitor = malloc(sizeof(t_monitor));
 	if (!*monitor)

@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 14:12:41 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/09 12:59:05 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/09 14:41:38 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	simulation(t_config *config)
 	t_control	*control;
 	pthread_t	thread_monitor;
 
-	if (!create_variables(&monitor, &control, config))
+	if (!create_var(&monitor, &control, config))
 		return (free(config));
 	control->start = 0;
 	control->is_running = 0;

@@ -6,19 +6,19 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 14:21:10 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/08 13:52:48 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/09 14:42:16 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/codexion.h"
 
-int	create_threads(t_monitor *monitor, pthread_t *monitor_thread, t_config *c)
+int	create_threads(t_monitor *monitor, pthread_t *thread, t_config *c)
 {
 	int	index;
 	int	threads_created;
 
 	threads_created = 0;
-	if (pthread_create(monitor_thread, NULL, &monitor_routine,
+	if (pthread_create(thread, NULL, &monitor_routine,
 			monitor) != 0)
 		return (threads_created);
 	threads_created++;
@@ -34,7 +34,7 @@ int	create_threads(t_monitor *monitor, pthread_t *monitor_thread, t_config *c)
 	return (threads_created);
 }
 
-int	join_threads(t_monitor *monitor, pthread_t *thread, t_control *control)
+int	join_threads(t_monitor *monitor, pthread_t *t, t_control *control)
 {
 	int	result;
 	int	index;
@@ -43,7 +43,7 @@ int	join_threads(t_monitor *monitor, pthread_t *thread, t_control *control)
 	index = 0;
 	if (index < control->total_threads)
 	{
-		if (pthread_join(*thread, NULL) != 0)
+		if (pthread_join(*t, NULL) != 0)
 			result = 0;
 	}
 	index++;

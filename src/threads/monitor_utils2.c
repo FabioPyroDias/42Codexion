@@ -6,17 +6,17 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 12:57:37 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/09 14:19:41 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/09 14:46:17 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/codexion.h"
 
-void	set_dongle(t_dongle *dongle, int occupied, int is_ready, int released)
+void	set_dongle(t_dongle *dongle, int occupied, int is_ready, int rel)
 {
 	dongle->occupied = occupied;
 	dongle->is_ready = is_ready;
-	if (released)
+	if (rel)
 		dongle->last_release_time = get_current_time();
 }
 
@@ -33,25 +33,25 @@ void	assign_dongle(t_coder *coder, t_monitor *monitor, t_control *control)
 	print_message(control, coder->coder_id, "has taken a dongle");
 }
 
-void	update_requests(t_heap *heap, t_monitor *monitor, t_control *control)
+void	update_requests(t_heap *heap, t_monitor *m, t_control *control)
 {
 	int				index;
 	t_operations	operation;
 	int				has_left_dongle;
 
 	index = 0;
-	while (index < monitor->number_of_coders)
+	while (index < m->number_of_coders)
 	{
 		pthread_mutex_lock(&control->mutex);
-		has_left_dongle = monitor->coders_info[index].has_left_dongle;
+		has_left_dongle = m->coders_info[index].has_left_dongle;
 		pthread_mutex_unlock(&control->mutex);
-		pthread_mutex_lock(&monitor->coders_info[index].mutex);
-		operation = monitor->coders_info[index].current_operation;
-		pthread_mutex_unlock(&monitor->coders_info[index].mutex);
+		pthread_mutex_lock(&m->coders_info[index].mutex);
+		operation = m->coders_info[index].current_operation;
+		pthread_mutex_unlock(&m->coders_info[index].mutex);
 		if (operation == REQUESTING && !has_left_dongle)
 		{
-			if (!heap_contains(heap, &monitor->coders_info[index]))
-				heap_push(heap, &monitor->coders_info[index], control);
+			if (!heap_contains(heap, &m->coders_info[index]))
+				heap_push(heap, &m->coders_info[index], control);
 		}
 		index++;
 	}
@@ -86,7 +86,7 @@ void	release_dongles(t_monitor *monitor, t_control *control)
 	}
 }
 
-int	assign_dongles(t_heap *heap, t_monitor *monitor, t_control *control)
+int	assign_dongles(t_heap *heap, t_monitor *m, t_control *control)
 {
 	int		in_loop;
 	int		to_be_broadcasted;
@@ -99,11 +99,10 @@ int	assign_dongles(t_heap *heap, t_monitor *monitor, t_control *control)
 		if (heap->size == 0)
 			return (to_be_broadcasted);
 		coder = heap->coders[0];
-		if (monitor->dongles[coder->coder_id - 1].is_ready
-			&& monitor->dongles[coder->coder_id %
-				monitor->number_of_coders].is_ready)
+		if (m->dongles[coder->coder_id - 1].is_ready
+			&& m->dongles[coder->coder_id % m->number_of_coders].is_ready)
 		{
-			assign_dongle(coder, monitor, control);
+			assign_dongle(coder, m, control);
 			heap_pop(heap);
 			to_be_broadcasted = 1;
 		}

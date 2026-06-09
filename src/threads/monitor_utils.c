@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 21:14:50 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/09 14:27:43 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/09 14:45:42 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,12 @@ void	update_dongles(t_monitor *monitor)
 		index++;
 	}
 }
-void	schedule_dongles(t_heap *heap, t_monitor *monitor, t_control *control)
+
+void	schedule_dongles(t_heap *heap, t_monitor *m, t_control *control)
 {
-	update_requests(heap, monitor, control);
-	release_dongles(monitor, control);
-	if (assign_dongles(heap, monitor, control))
+	update_requests(heap, m, control);
+	release_dongles(m, control);
+	if (assign_dongles(heap, m, control))
 		pthread_cond_broadcast(&control->condition);
 }
 
