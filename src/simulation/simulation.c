@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 14:12:41 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/08 15:17:44 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/09 12:59:05 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	simulation(t_config *config)
 		control->is_running = 0;
 	control->start = 1;
 	control->start_time = get_current_time();
+	set_start_time(monitor, control->start_time);
 	pthread_cond_broadcast(&control->condition);
 	pthread_mutex_unlock(&control->mutex);
 	if (join_threads(monitor, &thread_monitor, control) == 0)

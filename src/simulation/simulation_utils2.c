@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/26 11:53:26 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/08 13:46:07 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/09 13:02:37 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,18 @@ int	initialize_control(t_control *control, t_config *c)
 	return (1);
 }
 
+void	set_start_time(t_monitor *monitor, long timestamp)
+{
+	int		index;
+
+	index = 0;
+	while (index < monitor->number_of_coders)
+	{
+		monitor->coders_info[index].last_compile_time = timestamp;
+		index++;
+	}
+}
+
 void	initialize_heap(t_heap **heap, int capacity)
 {
 	*heap = malloc(sizeof(t_heap));
@@ -46,7 +58,7 @@ void	initialize_heap(t_heap **heap, int capacity)
 	if (!(*heap)->coders)
 	{
 		free(*heap);
-		heap = NULL;
+		*heap = NULL;
 		return ;
 	}
 	(*heap)->size = 0;

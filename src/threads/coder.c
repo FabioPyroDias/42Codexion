@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 21:36:18 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/08 16:42:03 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/09 13:05:54 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,6 @@ void	*coder_routine(void *coder_info)
 		pthread_cond_wait(&control->condition, &control->mutex);
 	is_running = control->is_running;
 	pthread_mutex_unlock(&control->mutex);
-	pthread_mutex_lock(&coder->mutex);
-	coder->last_compile_time = get_current_time();
-	pthread_mutex_unlock(&coder->mutex);
 	while (is_running)
 	{
 		coder_work(coder, control);
@@ -37,6 +34,6 @@ void	*coder_routine(void *coder_info)
 		is_running = control->is_running;
 		pthread_mutex_unlock(&control->mutex);
 	}
-	printf("C%d - THREAD OVER\n", coder->coder_id);
+	//printf("C%d - THREAD OVER\n", coder->coder_id);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/01 23:34:02 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/08 15:28:56 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/09 14:20:30 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	coder_request(t_coder *coder, t_control *control)
 			pthread_mutex_unlock(&control->mutex);
 			return ;
 		}
-		printf("C%d - CODN_WAIT\n", coder->coder_id);
 		pthread_cond_wait(&control->condition, &control->mutex);
 	}
 	pthread_mutex_unlock(&control->mutex);
@@ -107,7 +106,6 @@ void	coder_refactor(t_coder *coder, t_control *control)
 	pthread_mutex_lock(&coder->mutex);
 	coder->current_operation = REQUESTING;
 	pthread_mutex_unlock(&coder->mutex);
-	printf("C%d - LEFT\n", coder->coder_id);
 }
 
 void	coder_work(t_coder *coder, t_control *control)
@@ -117,14 +115,10 @@ void	coder_work(t_coder *coder, t_control *control)
 	pthread_mutex_lock(&coder->mutex);
 	current_operation = coder->current_operation;
 	pthread_mutex_unlock(&coder->mutex);
-	printf("C%d - Inside coder_work (%d)\n", coder->coder_id, current_operation);
 	if (current_operation == DONE)
 		return ;
 	else if (current_operation == IDLE || current_operation == REQUESTING)
-	{
-		printf("C%d - IDLE | REQUESTING\n", coder->coder_id);
 		coder_request(coder, control);
-	}
 	else if (current_operation == COMPILING)
 	{
 		print_message(control, coder->coder_id, "is compiling");

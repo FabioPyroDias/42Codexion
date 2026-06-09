@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 13:53:38 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/05/28 17:08:22 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/09 14:30:24 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,5 @@ int	main(int argc, char *argv[])
 	if (!config)
 		return (free(config), 0);
 	simulation(config);
-	printf("MAIN\n");
 	return (0);
 }

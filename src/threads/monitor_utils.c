@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 21:14:50 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/08 15:30:25 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/09 14:27:43 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,8 @@ void	schedule_dongles(t_heap *heap, t_monitor *monitor, t_control *control)
 {
 	update_requests(heap, monitor, control);
 	release_dongles(monitor, control);
-	/* if (assign_dongles(heap, monitor, control))
-		pthread_cond_broadcast(&control->condition); */
-	assign_dongles(heap, monitor, control);
-	pthread_cond_broadcast(&control->condition);
+	if (assign_dongles(heap, monitor, control))
+		pthread_cond_broadcast(&control->condition);
 }
 
 void	monitor_work(t_monitor *monitor, t_control *control, t_heap *heap)
@@ -107,7 +105,7 @@ void	monitor_work(t_monitor *monitor, t_control *control, t_heap *heap)
 		pthread_mutex_lock(&control->mutex);
 		is_running = control->is_running;
 		pthread_mutex_unlock(&control->mutex);
-		usleep(1);
+		usleep(500);
 	}
 	pthread_mutex_lock(&control->mutex);
 	pthread_cond_broadcast(&control->condition);

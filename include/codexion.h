@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 13:53:46 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/08 13:56:30 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/09 13:03:28 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ int			validate_config(t_config *config);
 // SIMULATION METHODS
 void		simulation(t_config *config);
 int			initialize_control(t_control *control, t_config *c);
+void		set_start_time(t_monitor *monitor, long timestamp);
 void		initialize_heap(t_heap **heap, int capacity);
 long		get_current_time(void);
 void		print_message(t_control *control, int id, char *message);

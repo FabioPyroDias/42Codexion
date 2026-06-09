@@ -6,7 +6,7 @@
 /*   By: fda-cruz <fda-cruz@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 12:57:37 by fda-cruz          #+#    #+#             */
-/*   Updated: 2026/06/08 13:58:21 by fda-cruz         ###   ########.fr       */
+/*   Updated: 2026/06/09 14:19:41 by fda-cruz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	assign_dongle(t_coder *coder, t_monitor *monitor, t_control *control)
 	monitor->coders_info[coder->coder_id - 1].has_right_dongle = 1;
 	pthread_mutex_unlock(&control->mutex);
 	set_dongle(&monitor->dongles[coder->coder_id - 1], 1, 0, 0);
-	set_dongle(&monitor->dongles[coder->coder_id], 1, 0, 0);
+	set_dongle(&monitor->dongles[coder->coder_id % monitor->number_of_coders],
+		1, 0, 0);
 	print_message(control, coder->coder_id, "has taken a dongle");
 	print_message(control, coder->coder_id, "has taken a dongle");
 }
@@ -96,10 +97,11 @@ int	assign_dongles(t_heap *heap, t_monitor *monitor, t_control *control)
 	while (in_loop)
 	{
 		if (heap->size == 0)
-			return (0);
+			return (to_be_broadcasted);
 		coder = heap->coders[0];
 		if (monitor->dongles[coder->coder_id - 1].is_ready
-			&& monitor->dongles[coder->coder_id].is_ready)
+			&& monitor->dongles[coder->coder_id %
+				monitor->number_of_coders].is_ready)
 		{
 			assign_dongle(coder, monitor, control);
 			heap_pop(heap);
